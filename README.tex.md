@@ -10,11 +10,11 @@ Game of life is a "cellular automata" in which special rules and initial conditi
     \item For all others cases, the cells remain unchanged
 \end{enumerate}
 
-The rules were implemented and parallelised with MPI. One can also choose to run the code with or without graphics.
+
 
 ## Parallelisation
 
-The code has been parallelised in two different ways, 
+The program was parallelised with MPI and one can choose to run the code with or without graphics, with two different parallelisation methods,
 
 When graphics is turned off, the starting matrix is first scattered into the different processes, evenly. The processes then calculate the next timestep for the local array. Thereafter the penultimate row at the top and bottom is sent to the process below and above in rank respectively, where it replaces the bottom and top row respectively, so the boundary is correct for the next timestep. This process is then repeated, but without any scatter, as the local arrays are all already updated. 
 
