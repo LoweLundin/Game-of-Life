@@ -35,7 +35,7 @@ example: mpirun -np 4 ./gol 512 500 0 1
 ```
 
 Note that:
-<p align="center"><img src="/tex/755b50a97d20fad825d0afa81decf026.svg?invert_in_darkmode&sanitize=true" align=middle width=675.8451941999999pt height=193.05936375pt/></p>
+<p align="center"><img src="/tex/579c74e8fd04f35083a0eed7500e531c.svg?invert_in_darkmode&sanitize=true" align=middle width=675.8451941999999pt height=232.51141979999997pt/></p>
 
-Note that side length should be evenly divisible by number of cores and that the graphics will start looking strange or stop displaying any pixels when the side length exceeds windowWidth or windowHeight
+
 
