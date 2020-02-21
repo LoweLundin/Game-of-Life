@@ -14,7 +14,11 @@ The rules were implemented and parallelised with MPI. One can also choose to run
 
 ## Parallelisation
 
-The code has been parallel
+The code has been parallelised in two different ways, 
+
+When graphics is turned off, the starting matrix is first scattered into the different processes, evenly. The processes then calculate the next timestep for the local array. Thereafter the penultimate row at the top and bottom is sent to the process below and above in rank respectively, where it replaces the bottom and top row respectively, so the boundary is correct for the next timestep. This process is then repeated, but without any scatter, as the local arrays are all already updated. 
+
+When graphics is turned on, the starting matrix is first scattered, but after the next timestep has been computed, the data in each process is gathered in the master process, in which the drawGraphics function is called to update the graphic interface. The loop is then repeated with the gathered matrix once again being scattered to the processes. Note that this type of execution is not as effective as running without graphics, and that running with graphics also involves additional function calls, this "with graphics-mode" was simply included for fun.
 
 ## Installation
 
