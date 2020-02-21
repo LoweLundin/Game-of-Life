@@ -5,11 +5,11 @@ This project was part of the course Parallel and Distributed Programming taken a
 Game of life is a "cellular automata" in which special rules and initial conditions completely determine the outcome. The playing field is a grid of any size and every cell can be either "dead" or "alive". Each timestep, the cells change depending on the number of living cells they have adjacent. The rules are: 
 <p align="center"><img src="/tex/2652a4cbf53e98daa4bc6264cec685a2.svg?invert_in_darkmode&sanitize=true" align=middle width=394.47589335pt height=113.24201624999999pt/></p>
 
-The rules were implemented and parallelised with MPI. One can also choose to run the code with or without graphics.
+
 
 ## Parallelisation
 
-The code has been parallelised in two different ways, 
+The program was parallelised with MPI and one can choose to run the code with or without graphics, with two different parallelisation methods,
 
 When graphics is turned off, the starting matrix is first scattered into the different processes, evenly. The processes then calculate the next timestep for the local array. Thereafter the penultimate row at the top and bottom is sent to the process below and above in rank respectively, where it replaces the bottom and top row respectively, so the boundary is correct for the next timestep. This process is then repeated, but without any scatter, as the local arrays are all already updated. 
 
