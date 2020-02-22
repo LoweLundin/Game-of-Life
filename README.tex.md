@@ -49,8 +49,9 @@ $ mpirun -np 4 ./gol 512 500 0 1
 Note that:
 \begin{itemize}
 \item The program is runnable for any number of threads (except 0 and 1 if graphics is turned off), but the program can only be expected to run faster up until the number of threads is twice that of the number of cores.  
-\item Side length should be evenly divisible by number of threads and the graphics will start looking strange or stop displaying any pixels when the side length exceeds windowWidth or windowHeight
-\item waittime is mainly used for smaller grids to slow down execution, when trying to push numbers, always keep it at 0
+\item Side length should be evenly divisible by number of threads and the graphics will start looking strange or stop displaying any pixels when the side length exceeds windowWidth or windowHeight.
+\item Large enough grid sizes might crash the execution, as the memory needed to store them exceeds the working memory.
+\item waittime is mainly used for smaller grids to slow down execution, when trying to push numbers, always keep it at 0.
 \item Running with graphics on means longer running times and should not be used when trying to push numbers.
 \end{itemize}
 
