@@ -10,8 +10,6 @@ Game of life is a "cellular automata" in which special rules and initial conditi
     \item For all others cases, the cells remain unchanged
 \end{enumerate}
 
-
-
 ## Parallelisation
 
 The program was parallelised with MPI and one can choose to run the code with or without graphics, with two different parallelisation methods,
