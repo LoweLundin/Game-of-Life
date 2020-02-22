@@ -38,7 +38,7 @@ $ mpirun -np 4 ./gol 512 500 0 1
 ```
 
 Note that:
-<p align="center"><img src="/tex/579c74e8fd04f35083a0eed7500e531c.svg?invert_in_darkmode&sanitize=true" align=middle width=675.8451941999999pt height=232.51141979999997pt/></p>
+<p align="center"><img src="/tex/df536d242bce5697a0b487d08977f1ca.svg?invert_in_darkmode&sanitize=true" align=middle width=675.8451941999999pt height=285.114159pt/></p>
 
 
 
