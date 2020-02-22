@@ -23,7 +23,15 @@ When graphics is turned on, the starting matrix is first scattered, but after th
 Note: This has so far only been tried out on Windows with Ubuntu Terminal.
 
 Download and compile the code
+```
+$ cd <WORKING-DIRECTORY>
+ 
+$ git clone https://github.com/LoweLundin/Game-of-Life-in-C
 
+$ cd <WORKING-DIRECTORY>/Game-of-Life-in-C
+
+$ make
+```
 
 ## Usage
 
