@@ -19,7 +19,7 @@ Note: This has so far only been tried out on Windows with Ubuntu Terminal.
 
 Download and compile the code
 ```
-<img src="/tex/bd4629dfa85a459e2c053a1984f31ec8.svg?invert_in_darkmode&sanitize=true" align=middle width=281.90691869999995pt height=22.831056599999986pt/> git clone https://github.com/LoweLundin/Game-of-Life-in-C
+<img src="/tex/c3c85395ee4adb7e30271e499e69c473.svg?invert_in_darkmode&sanitize=true" align=middle width=300.9061176pt height=22.831056599999986pt/> git clone https://github.com/LoweLundin/Game-of-Life-in-C
 
 <img src="/tex/80ad2bf4299100c69f840e1d7f4a7558.svg?invert_in_darkmode&sanitize=true" align=middle width=499.32025769999996pt height=24.65753399999998pt/> make
 ```
