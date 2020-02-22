@@ -24,7 +24,7 @@ Note: This has so far only been tried out on Windows with Ubuntu Terminal.
 
 Download and compile the code
 ```
-$ cd <WORKING-DIRECTORY>
+$ cd <WORKING-DIRECTORY>m
  
 $ git clone https://github.com/LoweLundin/Game-of-Life-in-C
 
