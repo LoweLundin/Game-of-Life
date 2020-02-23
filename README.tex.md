@@ -38,7 +38,7 @@ make
 If you want graphics, make sure you have an X server running, Xming has been used in development.
 ```bash
 To run, enter: 
-mpirun -np (-n on some systems) [desired number of threads] ./gol [side length of grid] [number of timesteps] [waittime (typically 0)] [boolean graphics on/off]
+mpirun -np (-n on some systems) [desired number of threads] ./gol [side length of grid] [number of timesteps] [waitTime (typically 0)] [boolean graphics on/off]
 
 Example: 
 mpirun -np 4 ./gol 512 500 0 1
@@ -49,7 +49,7 @@ Note that:
 \item The program is runnable for any number of threads (except 0 and 1 if graphics is turned off), but the program can only be expected to run faster up until the number of threads is twice that of the number of cores.  
 \item Side length should be evenly divisible by number of threads and the graphics will start looking strange or stop displaying any pixels when the side length exceeds windowWidth or windowHeight.
 \item Large enough grid sizes might crash the execution, as the memory needed to store them exceeds the working memory.
-\item waittime is mainly used for smaller grids to slow down execution, when trying to push numbers, always keep it at 0.
+\item waitTime is mainly used for smaller grids to slow down execution, when trying to push numbers, always keep it at 0.
 \item Running with graphics on means longer running times and should not be used when trying to push numbers.
 \end{itemize}
 
