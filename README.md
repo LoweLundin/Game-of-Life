@@ -23,7 +23,7 @@ cd <WORKING-DIRECTORY>
  
 git clone https://github.com/LoweLundin/Game-of-Life-in-C
 
-cd <WORKING-DIRECTORY>/Game-of-Life-in-C
+cd <WORKING-DIRECTORY>/Game-of-Life-in-C/game_of_life
 
 make
 ```
