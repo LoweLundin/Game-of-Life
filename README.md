@@ -33,14 +33,14 @@ make
 If you want graphics, make sure you have an X server running, Xming has been used in development.
 ```bash
 To run, enter: 
-mpirun -np (-n on some systems) [desired number of threads] ./gol [side length of grid] [number of timesteps] [waittime (typically 0)] [boolean graphics on/off]
+mpirun -np (-n on some systems) [desired number of threads] ./gol [side length of grid] [number of timesteps] [waitTime (typically 0)] [boolean graphics on/off]
 
 Example: 
 mpirun -np 4 ./gol 512 500 0 1
 ```
 
 Note that:
-<p align="center"><img src="/tex/df536d242bce5697a0b487d08977f1ca.svg?invert_in_darkmode&sanitize=true" align=middle width=675.8451941999999pt height=285.114159pt/></p>
+<p align="center"><img src="/tex/fbc140709d82202f7635d83c57b2c642.svg?invert_in_darkmode&sanitize=true" align=middle width=675.8451941999999pt height=285.114159pt/></p>
 
 
 
