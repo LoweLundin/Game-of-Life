@@ -5,7 +5,11 @@ This project was part of the course Parallel and Distributed Programming taken a
 Game of life is a "cellular automata" in which special rules and initial conditions completely determine the outcome. The playing field is a grid of any size and every cell can be either "dead" or "alive". Each timestep, the cells change depending on the number of living cells they have adjacent. The rules are: 
 <p align="center"><img src="/tex/2652a4cbf53e98daa4bc6264cec685a2.svg?invert_in_darkmode&sanitize=true" align=middle width=394.47589335pt height=113.24201624999999pt/></p>
 
-<p align="center"><![](game_of_life.gif)></p>
+<p align="center">
+  <img width="460" height="460" src=game_of_life.gif>
+</p>
+
+<p align="center"><></p>
 
 ## Parallelisation
 
