@@ -7,9 +7,9 @@ Game of life is a "cellular automata" in which special rules and initial conditi
 
 <p align="center">
   <img width="460" height="460" src=game_of_life.gif>
-  asdf
-</p>
 
+</p>
+<p align="center">Run on 512 x 512 grid with 0.05 waitTime</p>
 
 
 ## Parallelisation
