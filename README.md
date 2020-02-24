@@ -9,7 +9,6 @@ Game of life is a "cellular automata" in which special rules and initial conditi
   <img width="460" height="460" src=game_of_life.gif>
 </p>
 
-<p align="center"><></p>
 
 ## Parallelisation
 
