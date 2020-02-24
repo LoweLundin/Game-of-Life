@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     waitTime = waitTime * 1000000; //As usleep is used
 
     /*
-    Generating the initial condition.
+    Generating the initial condition. Feel free to play around with different intitial conditions.
     The matrix has the size of N*N given as input, with 1's along the boundary and 0's elsewhere.
     The matrix is also zero-padded, so neighbourchecks in the step function don't go out of bounds.
     */
