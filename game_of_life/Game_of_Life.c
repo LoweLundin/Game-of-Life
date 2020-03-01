@@ -22,7 +22,10 @@ and it is therefore advisable to run with a small waitTime,  e.g. 0.5.
 */
 
 char *Step(char *boardState, int N, int rows);
-void drawGraphics(int N,char * boardState, float waitTime);
+void square(int N);
+void floater(int N);
+void gosper_glider_gun(int N);
+void drawGraphics(int N, char * boardState, float waitTime);
 void print_matrix(char* A, int n, int rows);
 
 const float Color = 0;
@@ -31,16 +34,17 @@ char *boardState, *newBoardState;
 
 int main(int argc, char *argv[])
 {
-    if (argc != 5)
+    if (argc != 6)
     {
         printf("Wrong number of input arguments\n");
-        printf("To run, enter 'mpirun -np (-n on some systems) [desired number of threads] ./gol [desired side length of square] [timesteps] [waittime (typically 0)] [boolean graphics on/off]'\n");
+        printf("To run, enter 'mpirun -np (-n on some systems) [number of threads] ./gol [side length of square] [initial state] [timesteps] [waittime (typically 0)] [boolean graphics on/off]'\n");
         return -1;
     }
-    int N = atoi(argv[1]);        //The size of one side of the generated matrix.
-    int nsteps = atoi(argv[2]);   //The number of iterations.
-    double waitTime = atof(argv[3]);    //The waitTime, if one would like to see the graphics slower.
-    int graphics = atoi(argv[4]); //If this is 1, there will be graphics for each timestep, otherwise only the end-state will be shown.
+    int N = atoi(argv[1]);        // The size of one side of the generated matrix.
+    char type_of_matrix = argv[2][0]; // The types of initial states, 
+    int nsteps = atoi(argv[3]);   // The number of iterations.
+    double waitTime = atof(argv[4]);    // The waitTime, if one would like to see the graphics slower.
+    int graphics = atoi(argv[5]); // If this is 1, there will be graphics for each timestep, otherwise only the end-state will be shown.
     
     int  rows;
     int size, rank;
@@ -53,27 +57,32 @@ int main(int argc, char *argv[])
     waitTime = waitTime * 1000000; //As usleep is used
 
     /*
-    Generating the initial condition. Feel free to play around with different intitial conditions.
-    The matrix has the size of N*N given as input, with 1's along the boundary and 0's elsewhere.
-    The matrix is also zero-padded, so neighbourchecks in the step function don't go out of bounds.
+    Generating the initial condition. Feel free to play around with and create own intitial conditions. https://www.conwaylife.com/wiki/Main_Page can be used for inspiration.
     */
-    for (int i = 1; i < N+1; i++)
+
+    switch (type_of_matrix)
     {
-        for(int j = 1; j < N+1; j++)
+    case 's': square(N);
+        break;
+
+    case 'f': floater(N);
+        break;
+
+    case 'g':
+        if(N<38)
         {
-        if (i > 1 && i < N+1 && (j == 1 || j == N))
-        {
-            boardState[i*(N+2)+j] = 1;
-        }
-        else if (i==1 || i == N)
-        {
-            boardState[i*(N+2)+j] = 1;
+            if(rank == 0) printf("Too small grid, running square instead\n");
+            square(N);
         }
         else
         {
-            boardState[i*(N+2)+j] = 0;
+            gosper_glider_gun(N);
         }
-        }
+        break;
+
+    default:
+        if(rank == 0) printf("Unrecognised command, defaulting to square\n");
+        square(N);
     }
 
     MPI_Request request;
@@ -88,7 +97,7 @@ int main(int argc, char *argv[])
     
     if(rank == 0 )
     {
-        //Only runs for even splits
+        // Only runs for even splits
         if(N % size!=0)
         {
             printf("The number of rows must be evenly divisible with the number of threads\n");
@@ -98,7 +107,7 @@ int main(int argc, char *argv[])
         {
             rows = N/size;
         }
-        //Initializes graphics and runs one step to show the starting state
+        // Initializes graphics and runs one step to show the starting state
         if(graphics == 1)
         {
             InitializeGraphics("gameOfLife", windowWidth, windowHeight);
@@ -107,11 +116,11 @@ int main(int argc, char *argv[])
         }  
     }
 
-    //Broadcasting the number of rows each process is going to take
+    // Broadcasting the number of rows each process is going to take
     MPI_Bcast(&rows, 1, MPI_INT, 0, MPI_COMM_WORLD);
     local  = (char*) calloc((N+2) * (rows+2), sizeof(char));
 
-    //Generating the arrays for number of elements to receive and displacement
+    // Generating the arrays for number of elements to receive and displacement
     int counts[size];
     int sendback[size];
     int displs[size];
@@ -149,8 +158,8 @@ int main(int argc, char *argv[])
     if(rank == 0 )
     {
         printf("Execution time: %f\n", time);
-        printf("Freezing graphics 20 seconds in end state\n");
-        drawGraphics(N, boardState, 20000000);
+        printf("Freezing graphics 10 seconds in end state\n");
+        drawGraphics(N, boardState, 10000000);
     }
 
     /*
@@ -192,11 +201,11 @@ int main(int argc, char *argv[])
 
         if(rank == 0 ){
             printf("Exeution time: %f\n", time);
-            printf("Endstate after %d timesteps displayed for 20 seconds\n", nsteps);
+            printf("Endstate after %d timesteps displayed for 10 seconds\n", nsteps);
             if(graphics == 0 ){
                 InitializeGraphics("gameOfLife", windowWidth, windowHeight); //If the program can't find any X server, this will crash the program, this is however after the execution 
                 SetCAxes(0, 1);
-                drawGraphics(N, boardState, 20000000);
+                drawGraphics(N, boardState, 10000000);
             }
         } 
     }
@@ -205,14 +214,14 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-//The stepping function
+// The stepping function
 char *Step(char *boardState, int N, int rows)
 {
     newBoardState = calloc((N+2) * (rows+2),sizeof(char));
     int i, j, k, l; 
     int neighbours = 0;
     
-    //i and j are used to cycle through the pixels of a matrix, while k and l are used to look at each pixel's neighbours
+    // i and j are used to cycle through the pixels of a matrix, while k and l are used to look at each pixel's neighbours
     for (i = 1; i < rows+1; i++)
     {
         for (j = 1; j < N+1; j++)
@@ -228,7 +237,7 @@ char *Step(char *boardState, int N, int rows)
                 }
             }
 
-        //Stating the rules of Game of Life
+        // Stating the rules of Game of Life
         if (neighbours == 2)
         {
             newBoardState[i*(N+2)+j] = boardState[i*(N+2)+j];
@@ -247,7 +256,103 @@ char *Step(char *boardState, int N, int rows)
     return newBoardState;
 }
 
-//The function to draw the graphics 
+
+/* The matrix has the size of N*N given as input, with 1's along the boundary and 0's elsewhere.
+   The matrix is also zero-padded, so neighbourchecks in the step function don't go out of bounds.*/
+
+void square(int N)
+{
+    for (int i = 1; i < N+1; i++)
+    {
+        for(int j = 1; j < N+1; j++)
+        {
+            if (i > 1 && i < N+1 && (j == 1 || j == N))
+            {
+                boardState[i*(N+2)+j] = 1;
+            }
+            else if (i==1 || i == N)
+            {
+                boardState[i*(N+2)+j] = 1;
+            }
+        }
+    }
+}
+
+
+// A single floater (or glider) in starting in the lower left corner
+void floater(int N)
+{
+for (int i = 0; i < N; i++)
+    {
+        for(int j = 0; j < N; j++){
+            if (i == 1 && j==2)
+            {
+                boardState[i*(N+2)+j] = 1;
+            }
+            else if (i == 2 && j == 3)
+            {
+                boardState[i*(N+2)+j] = 1;
+            }
+            else if (i == 3 && (j==1 || j==2 || j==3))
+            {
+                boardState[i*(N+2)+j] = 1;
+                boardState[i*(N+2)+j] = 1;
+                boardState[i*(N+2)+j] = 1;
+            }
+            }              
+    }
+}
+
+// A glider gun in the lower left corner, shooting gliders diagonally up/right
+void gosper_glider_gun(int N)
+{
+    boardState[N+2+25] = 1;
+
+    boardState[2*(N+2)+23] = 1;
+    boardState[2*(N+2)+25] = 1;
+    
+    boardState[3*(N+2)+13] = 1;
+    boardState[3*(N+2)+14] = 1;
+    boardState[3*(N+2)+21] = 1;
+    boardState[3*(N+2)+22] = 1;
+    boardState[3*(N+2)+35] = 1;
+    boardState[3*(N+2)+36] = 1;
+
+    boardState[4*(N+2)+12] = 1;
+    boardState[4*(N+2)+16] = 1;
+    boardState[4*(N+2)+21] = 1;
+    boardState[4*(N+2)+22] = 1;
+    boardState[4*(N+2)+35] = 1;
+    boardState[4*(N+2)+36] = 1;
+
+    boardState[5*(N+2)+1] = 1;
+    boardState[5*(N+2)+2] = 1;
+    boardState[5*(N+2)+11] = 1;
+    boardState[5*(N+2)+17] = 1;
+    boardState[5*(N+2)+21] = 1;
+    boardState[5*(N+2)+22] = 1;
+
+    boardState[6*(N+2)+1] = 1;
+    boardState[6*(N+2)+2] = 1;
+    boardState[6*(N+2)+11] = 1;
+    boardState[6*(N+2)+15] = 1;
+    boardState[6*(N+2)+17] = 1;
+    boardState[6*(N+2)+18] = 1;
+    boardState[6*(N+2)+23] = 1;
+    boardState[6*(N+2)+25] = 1;
+
+    boardState[7*(N+2)+11] = 1;
+    boardState[7*(N+2)+17] = 1;
+    boardState[7*(N+2)+25] = 1;
+    
+    boardState[8*(N+2)+12] = 1;
+    boardState[8*(N+2)+16] = 1;
+
+    boardState[9*(N+2)+13] = 1;
+    boardState[9*(N+2)+14] = 1;    
+}
+
+// The function to draw the graphics 
 void drawGraphics(int N,char * boardState, float waitTime)
 {
     float oneDivN = 1 / (float)(N);
@@ -263,7 +368,7 @@ void drawGraphics(int N,char * boardState, float waitTime)
     usleep(waitTime);
 }
 
-//For printing the matrices in the terminal
+// For printing the matrices in the terminal
 void print_matrix(char* A, int n, int rows){
     int i,j;
     for (i=0; i<(rows+2)*(n+2); i++) {
