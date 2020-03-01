@@ -40,10 +40,10 @@ int main(int argc, char *argv[])
         printf("To run, enter 'mpirun -np (-n on some systems) [number of threads] ./gol [side length of square] [initial state (s/f/g)] [timesteps] [waittime (typically 0)] [boolean graphics on/off]'\n");
         return -1;
     }
-    int N = atoi(argv[1]);        // The size of one side of the generated matrix.
+    int N = atoi(argv[1]); // The size of one side of the generated matrix.
     char type_of_matrix = argv[2][0]; // The type of initial states.
-    int nsteps = atoi(argv[3]);   // The number of iterations.
-    double waitTime = atof(argv[4]);    // The waitTime, if one would like to see the graphics slower.
+    int nsteps = atoi(argv[3]); // The number of iterations.
+    double waitTime = atof(argv[4]); // The waitTime, if one would like to see the graphics slower.
     int graphics = atoi(argv[5]); // If this is 1, there will be graphics for each timestep, otherwise only the end-state will be shown.
     
     int  rows;
