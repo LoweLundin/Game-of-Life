@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
     case 'g':
         if(N<38)
         {
-            if(rank == 0) printf("Too small grid, running square instead\n");
+            printf("Too small grid, running square instead\n");
             square(N);
         }
         else
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
         break;
 
     default:
-        if(rank == 0) printf("Unrecognised command, defaulting to square\n");
+        printf("Unrecognised command, defaulting to square\n");
         square(N);
     }
 
