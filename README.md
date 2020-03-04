@@ -40,7 +40,7 @@ make
 If you want graphics, make sure you have an X server running, Xming has been used in development.
 ```bash
 To run, enter: 
-mpirun -np (-n on some systems) [desired number of threads] ./gol [side length of grid] [initial condition to run] [number of timesteps] [waitTime (typically 0)] [boolean graphics on/off]
+mpirun -np (-n on some systems) [desired number of threads] ./gol [side length of grid] [initial condition to run (s/f/g)] [number of timesteps] [waitTime (typically 0)] [boolean graphics on/off]
 
 Example: 
 mpirun -np 4 ./gol 512 s 500 0 1
