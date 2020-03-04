@@ -6,7 +6,7 @@ Game of life is a "cellular automata" in which special rules and initial conditi
 <p align="center"><img src="/tex/2652a4cbf53e98daa4bc6264cec685a2.svg?invert_in_darkmode&sanitize=true" align=middle width=394.47589335pt height=113.24201624999999pt/></p>
 
 <p align="center">
-  <img width="600" height="600" src=game_of_life.gif>
+  <img width="450" height="450" src=game_of_life.gif>
 
 </p>
 <p align="center">Run on 512 x 512 grid with a square on the boundary as initial condition and 0.05 waitTime. </p>
