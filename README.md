@@ -49,5 +49,7 @@ mpirun -np 4 ./gol 512 s 500 0 1
 Note that:
 <p align="center"><img src="/tex/fbc140709d82202f7635d83c57b2c642.svg?invert_in_darkmode&sanitize=true" align=middle width=675.8451941999999pt height=285.114159pt/></p>
 
+## Related information
 
+Project report hosted on [Dropbox](https://www.dropbox.com/s/yjhkwn9mc8skqxw/Game_of_Life.pdf?dl=0)
 
