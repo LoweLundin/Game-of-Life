@@ -5,6 +5,7 @@
 #include <math.h>
 #include <sys/time.h>
 #include <mpi.h>
+#include<time.h>
 
 /*
 In Game Of Life, every cell on the grid is either alive or dead, the rules are:
@@ -25,6 +26,7 @@ char *Step(char *boardState, int N, int rows);
 void square(int N);
 void floater(int N);
 void gosper_glider_gun(int N);
+void rand_grid(int N, int fillRatio);
 void drawGraphics(int N, char * boardState, float waitTime);
 void print_matrix(char* A, int n, int rows);
 
@@ -37,7 +39,7 @@ int main(int argc, char *argv[])
     if (argc != 6)
     {
         printf("Wrong number of input arguments\n");
-        printf("To run, enter 'mpirun -np (-n on some systems) [number of threads] ./gol [side length of square] [initial state (s/f/g)] [timesteps] [waittime (typically 0)] [boolean graphics on/off]'\n");
+        printf("To run, enter 'mpirun -np (-n on some systems) [number of threads] ./gol [side length of square] [initial state (s/f/g/r)] [timesteps] [waittime (typically 0)] [boolean graphics on/off]'\n");
         return -1;
     }
     int N = atoi(argv[1]); // The size of one side of the generated matrix.
@@ -78,6 +80,9 @@ int main(int argc, char *argv[])
         {
             gosper_glider_gun(N);
         }
+        break;
+    
+    case 'r': rand_grid(N, 0);
         break;
 
     default:
@@ -278,29 +283,16 @@ void square(int N)
     }
 }
 
-
-// A single floater (or glider) in starting in the lower left corner
+// A single floater (or glider) starting in the lower left corner
 void floater(int N)
 {
-for (int i = 0; i < N; i++)
-    {
-        for(int j = 0; j < N; j++){
-            if (i == 1 && j==2)
-            {
-                boardState[i*(N+2)+j] = 1;
-            }
-            else if (i == 2 && j == 3)
-            {
-                boardState[i*(N+2)+j] = 1;
-            }
-            else if (i == 3 && (j==1 || j==2 || j==3))
-            {
-                boardState[i*(N+2)+j] = 1;
-                boardState[i*(N+2)+j] = 1;
-                boardState[i*(N+2)+j] = 1;
-            }
-            }              
-    }
+    boardState[N+2+3] = 1;
+
+    boardState[2*(N+2)+1] = 1;
+    boardState[2*(N+2)+3] = 1;
+    
+    boardState[3*(N+2)+3] = 1;
+    boardState[3*(N+2)+2] = 1;
 }
 
 // A glider gun in the lower left corner, shooting gliders diagonally up/right
@@ -350,6 +342,25 @@ void gosper_glider_gun(int N)
 
     boardState[9*(N+2)+13] = 1;
     boardState[9*(N+2)+14] = 1;    
+}
+
+// Grid randomly initialised
+void rand_grid(int N, int fillRatio)
+{
+    srand(time(0));
+
+    if(fillRatio == 0) fillRatio = rand() % 100;
+
+    for (int i = 1; i < N+1; i++)
+    {
+        for(int j = 1; j < N+1; j++)
+        {
+            if (rand() % 100 < fillRatio % 100) 
+            {
+                boardState[i*(N+2)+j] = 1;
+            }
+        }
+    }
 }
 
 // The function to draw the graphics 
