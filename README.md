@@ -26,13 +26,13 @@ Note: This has so far only been tried out on Windows with Ubuntu Terminal.
 
 Download and compile the code:
 ```
-cd <WORKING-DIRECTORY>
+$ cd <WORKING-DIRECTORY>
  
-git clone https://github.com/LoweLundin/Game-of-Life
+$ git clone https://github.com/LoweLundin/Game-of-Life
 
-cd <WORKING-DIRECTORY>/Game-of-Life/game_of_life
+$ cd <WORKING-DIRECTORY>/Game-of-Life/game_of_life
 
-make
+$ make
 ```
 
 ## Usage
@@ -40,10 +40,10 @@ make
 If you want graphics, make sure you have an X server running, Xming has been used in development.
 ```bash
 To run, enter: 
-mpirun -np (-n on some systems) [desired number of threads] ./gol [side length of grid] [initial condition to run (s/f/g/r)] [number of timesteps] [waitTime (typically 0)] [boolean graphics on/off]
+$ mpirun -np (-n on some systems) [desired number of threads] ./gol [side length of grid] [initial condition to run (s/f/g/r)] [number of timesteps] [waitTime (typically 0)] [boolean graphics on/off]
 
 Example: 
-mpirun -np 4 ./gol 512 s 500 0 1
+$ mpirun -np 4 ./gol 512 s 500 0 1
 ```
 
 Note that:
