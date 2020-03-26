@@ -1,4 +1,4 @@
-# Game of Life in C
+# Game of Life
 
 This project was produced for the course Parallel and Distributed Programming taken at Uppsala University during 2019. Mind that the code was produced at an earlier stage in my education and that everything might not be best practice.
 
@@ -28,9 +28,9 @@ Download and compile the code:
 ```
 cd <WORKING-DIRECTORY>
  
-git clone https://github.com/LoweLundin/Game-of-Life-in-C
+git clone https://github.com/LoweLundin/Game-of-Life
 
-cd <WORKING-DIRECTORY>/Game-of-Life-in-C/game_of_life
+cd <WORKING-DIRECTORY>/Game-of-Life/game_of_life
 
 make
 ```
