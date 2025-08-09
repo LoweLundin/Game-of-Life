@@ -9,7 +9,7 @@ Game of life is a "cellular automata" in which special rules and initial conditi
   <img width="500" height="500" src=game_of_life.gif>
 
 </p>
-<p align="center">Run on 512 x 512 grid with a square on the boundary as initial condition and 0.05 waitTime. </p>
+<p align="center">Run on 512 x 512 grid with a square on the boundary as the initial condition and 0.05 waitTime (to make it visually appealing, otherwise it's way too fast!). </p>
 
 
 ## Parallelisation
