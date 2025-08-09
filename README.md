@@ -1,6 +1,6 @@
 # Game of Life
 
-Game of life is a "cellular automata" in which special rules and initial conditions completely determine the outcome. The playing field is a grid of any size and every cell can be either "dead" or "alive". Each timestep, the cells change depending on the number of living cells they have adjacent. The rules are: 
+Game of life is a "cellular automata" in which rules and initial conditions completely determine the outcome. The playing field is a grid of any size and every cell (pixel) can be either "dead" (black) or "alive" (white). Each timestep, the cells change depending on the number of living cells they are adjacent to. The rules are: 
 <p align="center"><img src="/tex/2652a4cbf53e98daa4bc6264cec685a2.svg?invert_in_darkmode&sanitize=true" align=middle width=394.47589335pt height=113.24201624999999pt/></p>
 
 <p align="center">
